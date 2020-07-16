@@ -17,6 +17,12 @@ class EarthquakesViewController: UIViewController {
     private var userTrackingButton: MKUserTrackingButton!
     
     private let locationManager = CLLocationManager()
+    
+    var quakes: [Quake] = [] {
+        didSet {
+            mapView.addAnnotations(quakes) // adds every new quake in the array to the map instantly
+        }
+    }
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +50,7 @@ class EarthquakesViewController: UIViewController {
             if let error = error {
                 NSLog("%@", "Error fetching quakes: \(error)")
             }
-            print(quakes)
+            self.quakes = quakes ?? []
         }
     }
 }
